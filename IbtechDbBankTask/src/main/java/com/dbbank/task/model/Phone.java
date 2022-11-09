@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Phone {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	@Column(name="customer_id") 
 	private long customerId;
@@ -24,6 +24,10 @@ public class Phone {
 	
 	@Column(name="number") 
 	private String number;
+
+	public Phone() {
+		
+	}
 
 	public Phone(long customerId, String countryCode, String number) {
 		//this.customer = customer;
@@ -56,12 +60,14 @@ public class Phone {
 		this.number = number;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
+
+
 
 }

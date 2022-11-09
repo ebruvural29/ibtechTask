@@ -1,5 +1,7 @@
 package com.dbbank.task;
 
+import java.util.List;
+
 import com.dbbank.task.dao.AccountDao;
 import com.dbbank.task.dao.AddresDao;
 import com.dbbank.task.dao.CustomerDao;
@@ -17,6 +19,10 @@ public class Main {
 //		customerDao.create(customer);
 //		
 		PhoneDao phoneDao = new PhoneDao();	
+		List<Phone> phones = phoneDao.getPhones();
+		for (Phone phone : phones) {
+			System.out.println("phone id: " + phone.getId());
+		}
 //		Phone phone = new Phone(customer.getId(), "90", "45545444");
 //		phoneDao.create(phone);
 //		

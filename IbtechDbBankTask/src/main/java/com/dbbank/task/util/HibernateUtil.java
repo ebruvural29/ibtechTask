@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.dbbank.task.model.Account;
 import com.dbbank.task.model.Addres;
+import com.dbbank.task.model.Command;
 import com.dbbank.task.model.Customer;
 import com.dbbank.task.model.Phone;
 
@@ -42,6 +43,7 @@ public class HibernateUtil {
 				configuration.addAnnotatedClass(Account.class);
 				configuration.addAnnotatedClass(Addres.class);
 				configuration.addAnnotatedClass(Customer.class);
+				configuration.addAnnotatedClass(Command.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
