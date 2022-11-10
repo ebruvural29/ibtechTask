@@ -37,31 +37,31 @@ public class CommandDao {
 		return null;
 	}
 	
-	public Command runCommands() {
-		Transaction transaction = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			try {
-				transaction = session.beginTransaction();
-				transaction.commit();
-				
-				CommandExecuter cmdExecuter = new CommandExecuter();
-				
-				List<Command> commands = session.createQuery("FROM Command").list();
-				for (Command commandItem : commands) {
-					cmdExecuter.execute(commandItem);
-					System.out.println("---> " + commandItem.getCommandName());
-				}
-
-			} finally {
-				session.close();
-			}
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	public Command runCommands() {
+//		Transaction transaction = null;
+//		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//			try {
+//				transaction = session.beginTransaction();
+//				transaction.commit();
+//				
+//				CommandExecuter cmdExecuter = new CommandExecuter();
+//				
+//				List<Command> commands = session.createQuery("FROM Command").list();
+//				for (Command commandItem : commands) {
+//					cmdExecuter.execute(commandItem);
+//					System.out.println("---> " + commandItem.getCommandName());
+//				}
+//
+//			} finally {
+//				session.close();
+//			}
+//		} catch (Exception e) {
+//			if (transaction != null) {
+//				transaction.rollback();
+//			}
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 }

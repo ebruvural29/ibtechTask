@@ -1,5 +1,9 @@
 package com.dbbank.task.operation;
 
+import java.util.List;
+
+import com.dbbank.task.bag.Bag;
+import com.dbbank.task.bag.BagKey;
 import com.dbbank.task.dao.CustomerDao;
 import com.dbbank.task.model.Customer;
 
@@ -12,28 +16,55 @@ public class CustomerOperation implements CrudOperations {
 	}
 
 	@Override
-	public void add() {
-		Customer customer = new Customer("Ebru", "Vural");
-		customerDao.create(customer);
+	public Bag add(Bag bag) {
+		String name = (String) bag.getValue(BagKey.NAME);
+		String surname = (String) bag.getValue(BagKey.SURNAME);
+
+		Customer customer = new Customer(name, surname);
+		Customer createdCustomer = customerDao.create(customer);
+		
+		Bag createdCustomerBag = new Bag();
+		createdCustomerBag.put(BagKey.ID, createdCustomer.getId());
+		createdCustomerBag.put(BagKey.NAME, createdCustomer.getName());
+		createdCustomerBag.put(BagKey.SURNAME, createdCustomer.getSurname());
+		
+		return createdCustomerBag;
 	}
 
 	@Override
-	public void update() {
-		Customer customer = new Customer("Name", "Surname");
-		customerDao.create(customer);
-		customerDao.update(customer.getId(), "Updated Name", "Updated Surname");
+	public Bag update(Bag bag) {	
+		long id = (long) bag.getValue(BagKey.ID);
+		String name = (String) bag.getValue(BagKey.NAME);
+		String surname = (String) bag.getValue(BagKey.SURNAME);			
+		
+		Customer customer = customerDao.update(id, name, surname);
+		Bag updatedCustomerBag = new Bag();
+		updatedCustomerBag.put(BagKey.ID, customer.getId());
+		updatedCustomerBag.put(BagKey.NAME, customer.getName());
+		updatedCustomerBag.put(BagKey.SURNAME, customer.getSurname());
+		
+		return updatedCustomerBag;
 	}
 
 	@Override
-	public void list() {
-		customerDao.listCustomers();
+	public Bag list() {
+		List<Customer> customers = customerDao.getCustomers();
+		Bag bag = new Bag();
+		bag.put(BagKey.CUSTOMERLÝST, customers);
+		return bag;
 	}
 
 	@Override
-	public void delete() {
-		Customer customer = new Customer("Delete", "Delete");
-		customerDao.create(customer);
-		customerDao.delete(customer.getId());
+	public Bag delete(Bag bag) {
+		long id = (long) bag.getValue(BagKey.ID);
+		customerDao.delete(id);
+		
+		Bag deletedCustomerBag = new Bag();
+		deletedCustomerBag.put(BagKey.ID, id);
+		deletedCustomerBag.put(BagKey.ISSUCCESSFULL, true);
+		deletedCustomerBag.put(BagKey.MESSAGE, "Success");
+		
+		return deletedCustomerBag;
 	}
 
 }

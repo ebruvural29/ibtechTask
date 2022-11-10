@@ -1,13 +1,15 @@
 package com.dbbank.task.operation;
 
+import com.dbbank.task.bag.Bag;
+
 public interface CrudOperations {
 	
-	void add();
+	Bag add(Bag bag);
 	
-	void update();
+	Bag update(Bag bag);
 	
-	void list();
+	Bag list();
 	
-	void delete();
+	Bag delete(Bag bag);
 
 }

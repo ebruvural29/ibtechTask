@@ -1,29 +1,31 @@
 package com.dbbank.task.operation;
 
+import com.dbbank.task.bag.Bag;
+
 public class AccountOperation implements CrudOperations {
 
 	@Override
-	public void add() {
+	public Bag add(Bag bag) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void update() {
+	public Bag update(Bag bag) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void list() {
+	public Bag list() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void delete() {
+	public Bag delete(Bag bag) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.dbbank.task.operation;
 
+import com.dbbank.task.bag.Bag;
 import com.dbbank.task.dao.CustomerDao;
 import com.dbbank.task.dao.PhoneDao;
 import com.dbbank.task.model.Customer;
@@ -16,28 +17,32 @@ public class PhoneOperation implements CrudOperations {
 	}
 
 	@Override
-	public void add() {	
+	public Bag add(Bag bag) {	
 		Phone phone = new Phone(addCustomer(), "90", "45545444");
 		phoneDao.create(phone);
+		return null;
 	}
 
 	@Override
-	public void update() {
+	public Bag update(Bag bag) {
 		Phone phone = new Phone(addCustomer(), "90", "45545444");
 		phoneDao.create(phone);
 		phoneDao.update(phone.getId(), "44", "4444444444");
+		return null;
 	}
 
 	@Override
-	public void list() {
+	public Bag list() {
 		phoneDao.list();
+		return null;
 	}
 
 	@Override
-	public void delete() {
+	public Bag delete(Bag bag) {
 		Phone phone = new Phone(addCustomer(), "88", "888888");
 		phoneDao.create(phone);
 		phoneDao.delete(phone.getId());
+		return null;
 	}
 	
 	long addCustomer() {

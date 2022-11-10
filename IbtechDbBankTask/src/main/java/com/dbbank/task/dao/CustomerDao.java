@@ -14,26 +14,28 @@ import com.dbbank.task.model.Phone;
 import com.dbbank.task.util.HibernateUtil;
 
 public class CustomerDao {
-	public void create(Customer customer) {
+	public Customer create(Customer customer) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// start a transaction
 			transaction = session.beginTransaction();
-			// save the student object
 			session.save(customer);
-			// commit transaction
 			transaction.commit();
+			System.out.println("-> Creation successful. Customer Id: " + customer.getId());
+			return customer;
 		} catch (Exception e) {
 			if (transaction != null) {
 				transaction.rollback();
 			}
 			e.printStackTrace();
+			return null;
 		}
 	}
 
 	public List<Customer> getCustomers() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			return session.createQuery("from Customer", Customer.class).list();
+			List<Customer> customers =session.createQuery("from Customer", Customer.class).list(); 
+			System.out.println("-> Customers received.");
+			return customers;
 		}
 	}
 	
@@ -45,7 +47,7 @@ public class CustomerDao {
 				List customers = session.createQuery("FROM Customer").list();
 				for (Iterator iterator = customers.iterator(); iterator.hasNext();) {
 					Customer customer = (Customer) iterator.next();
-					System.out.print("Id: " + customer.getId());
+					System.out.print("--> Id: " + customer.getId());
 					System.out.print(" Name: " + customer.getName());
 					System.out.println(" Surname: " + customer.getSurname());
 				}
@@ -65,7 +67,7 @@ public class CustomerDao {
 		}
 	}
 	   
-	public void update(long customerId, String name, String surname) {
+	public Customer update(long customerId, String name, String surname) {
 
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -76,10 +78,13 @@ public class CustomerDao {
 				customer.setSurname(surname);
 				session.update(customer);
 				transaction.commit();
+				System.out.println("-> Update successful. Customer Id: " + customerId);
+				return customer;
 			} catch (HibernateException e) {
 				if (transaction != null)
 					transaction.rollback();
 				e.printStackTrace();
+				return null;
 			} finally {
 				session.close();
 			}
@@ -95,6 +100,7 @@ public class CustomerDao {
 				Customer customer = (Customer) session.get(Customer.class, customerId);
 				session.delete(customer);
 				transaction.commit();
+				System.out.println("-> Deletion successful. Customer Id: " + customerId);
 			} catch (HibernateException e) {
 				if (transaction != null)
 					transaction.rollback();
