@@ -24,9 +24,9 @@ public class MainReflection {
 		bagAdd.put(BagKey.NAME, "Elanur");
 		bagAdd.put(BagKey.SURNAME, "Ocak");
 
-		CommandExecuter cmdExecuter = new CommandExecuter();
-		Bag customerBag = cmdExecuter.execute(cmd, bagAdd);
+		Bag customerBag = CommandExecuter.execute(cmd, bagAdd);
 
+		
 		// update
 		Command cmdUpdate = commandDao.getCommand("customer_update");
 		if (!isValue(cmdUpdate)) {
@@ -39,9 +39,9 @@ public class MainReflection {
 		bagUpdate.put(BagKey.NAME, "Updated");
 		bagUpdate.put(BagKey.SURNAME, "Surname");
 
-		cmdExecuter = new CommandExecuter();
-		Bag testBag = cmdExecuter.execute(cmdUpdate, bagUpdate);
+		Bag updatedBag = CommandExecuter.execute(cmdUpdate, bagUpdate);
 
+		
 		// delete
 		Command cmdDelete = commandDao.getCommand("customer_delete");
 		if (!isValue(cmdDelete)) {
@@ -52,17 +52,16 @@ public class MainReflection {
 		long customerId = (long) customerBag.getValue(BagKey.ID);
 		bagDelete.put(BagKey.ID, customerId);
 
-		cmdExecuter = new CommandExecuter();
-		Bag deletedCustomerBag = cmdExecuter.execute(cmdDelete, bagDelete);
+		Bag deletedCustomerBag = CommandExecuter.execute(cmdDelete, bagDelete);
 
+		
 		// list
 		Command cmdlist = commandDao.getCommand("customer_list");
 		if (!isValue(cmdlist)) {
 			return;
 		}
 
-		cmdExecuter = new CommandExecuter();
-		Bag customersBag = cmdExecuter.execute(cmdlist, new Bag());
+		Bag customersBag = CommandExecuter.execute(cmdlist, new Bag());
 		List<Customer> customers = (List<Customer>) customersBag.getValue(BagKey.CUSTOMERLÝST);
 
 		for (Customer customerItem : customers) {

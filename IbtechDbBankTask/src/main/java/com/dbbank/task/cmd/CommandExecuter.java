@@ -10,18 +10,17 @@ public class CommandExecuter {
 			Class<?> c = Class.forName("com.dbbank.task.operation." + command.getClassName());
 			Object obj = c.newInstance();
 			Method method;
+			Bag dbBag;
 			if (!bag.getMap().isEmpty()) {
 				method = c.getDeclaredMethod(command.getMethodName(), Bag.class);
-				Bag dbBag = (Bag) method.invoke(obj, bag);
-				System.out.println("-> Execute method runed");
-				return dbBag;
+				dbBag = (Bag) method.invoke(obj, bag);
+
 			} else {
-				method = c.getDeclaredMethod(command.getMethodName(), null);
-				Bag dbBag = (Bag) method.invoke(obj, null);
-				System.out.println("-> Execute method runed");
-				return dbBag;
+				method = c.getDeclaredMethod(command.getMethodName());
+				dbBag = (Bag) method.invoke(obj);
 			}
-			
+			System.out.println("-> Execute method runed");
+			return dbBag;
 
 		} catch (Exception e) {
 			System.out.println("-> Execute method failed");
