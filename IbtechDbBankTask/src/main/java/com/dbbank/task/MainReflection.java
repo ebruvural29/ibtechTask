@@ -11,57 +11,36 @@ import com.dbbank.task.model.Customer;
 
 public class MainReflection {
 
-	public static void main(String[] args) {
-		CommandDao commandDao = new CommandDao();
+	public static void main(String[] args) throws Exception {
 
 		// add
-		Command cmd = commandDao.getCommand("customer_add");
-		if (!isValue(cmd)) {
-			return;
-		}
-
 		Bag bagAdd = new Bag();
 		bagAdd.put(BagKey.NAME, "Elanur");
 		bagAdd.put(BagKey.SURNAME, "Ocak");
 
-		Bag customerBag = CommandExecuter.execute(cmd, bagAdd);
+		Bag customerBag = CommandExecuter.execute("customer_add", bagAdd);
 
 		
 		// update
-		Command cmdUpdate = commandDao.getCommand("customer_update");
-		if (!isValue(cmdUpdate)) {
-			return;
-		}
-
 		Bag bagUpdate = new Bag();
 		long id = (long) customerBag.getValue(BagKey.ID);
 		bagUpdate.put(BagKey.ID, id);
 		bagUpdate.put(BagKey.NAME, "Updated");
 		bagUpdate.put(BagKey.SURNAME, "Surname");
 
-		Bag updatedBag = CommandExecuter.execute(cmdUpdate, bagUpdate);
+		Bag updatedBag = CommandExecuter.execute("customer_update", bagUpdate);
 
 		
 		// delete
-		Command cmdDelete = commandDao.getCommand("customer_delete");
-		if (!isValue(cmdDelete)) {
-			return;
-		}
-
 		Bag bagDelete = new Bag();
 		long customerId = (long) customerBag.getValue(BagKey.ID);
 		bagDelete.put(BagKey.ID, customerId);
 
-		Bag deletedCustomerBag = CommandExecuter.execute(cmdDelete, bagDelete);
+		Bag deletedCustomerBag = CommandExecuter.execute("customer_delete", bagDelete);
 
 		
 		// list
-		Command cmdlist = commandDao.getCommand("customer_list");
-		if (!isValue(cmdlist)) {
-			return;
-		}
-
-		Bag customersBag = CommandExecuter.execute(cmdlist, new Bag());
+		Bag customersBag = CommandExecuter.execute("customer_list", new Bag());
 		List<Customer> customers = (List<Customer>) customersBag.getValue(BagKey.CUSTOMERLÝST);
 
 		for (Customer customerItem : customers) {
