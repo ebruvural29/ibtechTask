@@ -1,0 +1,6 @@
+
+    <customer>
+        <commandName>customer_add</commandName>
+        <customerName>Name</customerName>
+        <cutomerSurname>Surname</cutomerSurname>
+    </customer>
